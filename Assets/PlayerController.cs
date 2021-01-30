@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform gunCameraTransform;
     [SerializeField] private LayerMask notPlayerLayerMask;
     private Rigidbody rigidBody;
+    private NavMeshAgent navMeshAgent;
 
     private Vector3 moveVector = Vector3.zero;
     private float cameraPitch = 0f;
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -48,11 +51,15 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.S)) newVector.z--;
         if (Input.GetKey(KeyCode.D)) newVector.x++;
         if (Input.GetKey(KeyCode.A)) newVector.x--;
-        newVector.Normalize();
+        if (newVector.magnitude > 1) newVector.Normalize();
         newVector = Quaternion.Euler(0f, cameraYaw, 0f) * newVector;
 
         moveVector = Vector3.Lerp(moveVector, newVector, Time.deltaTime * 15f);
 
-        rigidBody.velocity = moveVector * Speed + Vector3.down;
+        //Turn on navmesh agent
+        navMeshAgent.enabled = true;
+
+        //Movement
+        navMeshAgent.Move(moveVector * Speed * Time.deltaTime);
     }
 }
