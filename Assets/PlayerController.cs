@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
+    public static float MoveMagnitude;
+
     public float Speed = 10f;
     public float LookMult = 1f;
 
@@ -58,6 +60,7 @@ public class PlayerController : MonoBehaviour
         newVector = Quaternion.Euler(0f, cameraYaw, 0f) * newVector;
 
         moveVector = Vector3.Lerp(moveVector, newVector, Time.deltaTime * 15f);
+        MoveMagnitude = moveVector.magnitude;
 
         //Turn on navmesh agent
         navMeshAgent.enabled = true;
@@ -65,11 +68,18 @@ public class PlayerController : MonoBehaviour
         //Movement
         navMeshAgent.Move(moveVector * Speed * Time.deltaTime);
 
-        if ((moveVector.magnitude > 0.5f) && (audioClipTime < Time.time))
+        if ((newVector.magnitude > 0.5f) && (audioClipTime < Time.time))
         {
             audioSource.clip = PlayerWalking[Random.Range(0, PlayerWalking.Length)];
-            audioClipTime = Time.time + audioSource.clip.length + Random.Range(0.1f, 0.4f);
+            audioClipTime = Time.time + Random.Range(.33f, .38f);
+            audioSource.volume = Random.Range(.45f, .5f) * .5f;
+            audioSource.pitch = Random.Range(1.5f, 1.6f);
             audioSource.Play();
+        }
+        else if (newVector.magnitude <= 0.5f)
+        {
+            audioClipTime = Time.time;
+            audioSource.volume = Mathf.Lerp(audioSource.volume, 0f, Time.deltaTime * 10f);
         }
     }
 }
