@@ -18,6 +18,10 @@ public class Pistol : Gun
 
         GunRaycastHit hit = DoRaycast();
         if (hit.Hit)
+        {
             SparksPsSpawner.OnSpawnSparksParticles.Invoke(hit.Position, hit.Normal);
+            IDamagable damagable = hit.Object.GetComponent<IDamagable>();
+            if (damagable != null) damagable.TakeDamage(40);
+        }
     }
 }

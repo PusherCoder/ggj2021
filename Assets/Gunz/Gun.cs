@@ -75,7 +75,8 @@ public abstract class Gun : MonoBehaviour
             {
                 Hit = true,
                 Position = hit.point,
-                Normal = hit.normal
+                Normal = hit.normal,
+                Object = hit.collider.gameObject
             };
         }
 
@@ -88,4 +89,5 @@ public struct GunRaycastHit
     public bool Hit;
     public Vector3 Position;
     public Vector3 Normal;
+    public GameObject Object;
 }
