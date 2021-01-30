@@ -6,22 +6,27 @@ public class PlayerController : MonoBehaviour
     public float Speed = 10f;
     public float LookMult = 1f;
 
-    public AudioClip[] PlayerWalking;
+    public AudioClip PlayerWalk1;
+    public AudioClip PlayerWalk2;
 
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private Transform gunCameraTransform;
     [SerializeField] private LayerMask notPlayerLayerMask;
-    private AudioSource audioSource;
+    private Rigidbody rigidBody;
+<<<<<<< HEAD
     private NavMeshAgent navMeshAgent;
+=======
+    private AudioSource audioSource;
+>>>>>>> fe701c2 (Add Walky Sounds)
 
     private Vector3 moveVector = Vector3.zero;
     private float cameraPitch = 0f;
     private float cameraYaw = 0f;
-    private float audioClipTime = 0f;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        rigidBody = GetComponent<Rigidbody>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -64,12 +69,5 @@ public class PlayerController : MonoBehaviour
 
         //Movement
         navMeshAgent.Move(moveVector * Speed * Time.deltaTime);
-
-        if ((moveVector.magnitude > 0.5f) && (audioClipTime < Time.time))
-        {
-            audioSource.clip = PlayerWalking[Random.Range(0, PlayerWalking.Length)];
-            audioClipTime = Time.time + audioSource.clip.length + Random.Range(0.1f, 0.4f);
-            audioSource.Play();
-        }
     }
 }
