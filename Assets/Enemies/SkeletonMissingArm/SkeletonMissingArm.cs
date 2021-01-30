@@ -25,6 +25,8 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
 
     private void Update()
     {
+        if (Health <= 0) return; 
+
         navMeshAgent.SetDestination(PlayerController.Position);
         animator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
 
@@ -68,6 +70,7 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
     {
         float dissolve = 0f;
         flashTime = 999f;
+        navMeshAgent.speed = 1f;
 
         while (dissolve < 1)
         {
