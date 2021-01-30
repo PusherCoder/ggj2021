@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 1353952126}
   - component: {fileID: 1353952125}
   - component: {fileID: 1353952124}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
@@ -357,6 +357,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ceb1a7caaee4e4ba25753b4fdc2209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Speed: 10
+  LookMult: 1
+  cameraTransform: {fileID: 963194228}
+  notPlayerLayerMask:
+    serializedVersion: 2
+    m_Bits: 55
 --- !u!4 &1353952127
 Transform:
   m_ObjectHideFlags: 0
