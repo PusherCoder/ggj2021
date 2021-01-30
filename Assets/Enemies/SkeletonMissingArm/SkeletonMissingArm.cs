@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class SkeletonMissingArm : MonoBehaviour
+public class SkeletonMissingArm : MonoBehaviour, IDamagable
 {
     private NavMeshAgent navMeshAgent;
     private Animator animator;
@@ -15,6 +15,10 @@ public class SkeletonMissingArm : MonoBehaviour
     private void Update()
     {
         navMeshAgent.SetDestination(PlayerController.Position);
-        animator.SetFloat("Speed", Mathf.Clamp01(navMeshAgent.velocity.magnitude));
+        animator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
+    }
+
+    public void DoDamage(int amount)
+    {
     }
 }

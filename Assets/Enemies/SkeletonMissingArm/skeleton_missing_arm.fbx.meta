@@ -4,23 +4,20 @@ ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
+      74: 4723146814002874508
+    second: SkelArmAttack
+  - first:
       74: -8945691123924629249
-    second: Armature|Idle
+    second: SkelArmIdle
   - first:
       74: -7551964380084998518
-    second: SkeletonMissingArm|Run
+    second: SkelArmRun
   - first:
-      74: 4723146814002874508
-    second: SkeletonMissingArm|Attack
+      74: 2741021720612774420
+    second: SkelArmAttackUp
   - first:
-      74: 5623596023930472195
-    second: SkeletonMissingArm|Idle
-  - first:
-      74: 2912960987079277365
-    second: SkeletonMissingArm|NoAttack
-  - first:
-      74: 7735733803626306976
-    second: SeletonMissingArm|NoAttackHandDown
+      74: 7872173705088061422
+    second: SkelArmDown
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -50,7 +47,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: SkeletonMissingArm|Attack
+      name: SkelArmAttack
       takeName: Armature|Attack
       internalID: 0
       firstFrame: 1
@@ -79,7 +76,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: SkeletonMissingArm|Idle
+      name: SkelArmIdle
       takeName: Armature|Idle
       internalID: 0
       firstFrame: 0
@@ -108,7 +105,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: SkeletonMissingArm|Run
+      name: SkelArmRun
       takeName: Armature|Run
       internalID: 0
       firstFrame: 0
@@ -137,7 +134,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: SkeletonMissingArm|NoAttack
+      name: SkelArmAttackUp
       takeName: Armature|Attack
       internalID: 0
       firstFrame: 1
@@ -166,7 +163,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: SeletonMissingArm|NoAttackHandDown
+      name: SkelArmDown
       takeName: Armature|Attack
       internalID: 0
       firstFrame: 0
@@ -177,7 +174,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 1
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
