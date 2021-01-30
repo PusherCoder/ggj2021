@@ -15,5 +15,9 @@ public class Pistol : Gun
         StartCoroutine(MuzzleFlash());
         PlaySFX(Random.Range(.95f, 1f), Random.Range(1f, 1.05f));
         DoRecoil();
+
+        GunRaycastHit hit = DoRaycast();
+        if (hit.Hit)
+            SparksPsSpawner.OnSpawnSparksParticles.Invoke(hit.Position, hit.Normal);
     }
 }

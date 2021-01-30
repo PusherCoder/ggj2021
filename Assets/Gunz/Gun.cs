@@ -63,4 +63,29 @@ public abstract class Gun : MonoBehaviour
     {
         transform.localRotation = Quaternion.Euler(RecoilAmount * Random.Range(.9f, 1.1f));
     }
+
+    protected GunRaycastHit DoRaycast()
+    {
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 150f))
+        {
+            return new GunRaycastHit
+            {
+                Hit = true,
+                Position = hit.point,
+                Normal = hit.normal
+            };
+        }
+
+        return new GunRaycastHit { Hit = false };
+    }
+}
+
+public struct GunRaycastHit
+{
+    public bool Hit;
+    public Vector3 Position;
+    public Vector3 Normal;
 }
