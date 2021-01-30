@@ -6,21 +6,25 @@ public abstract class Gun : MonoBehaviour
     public Vector3 BobAmount;
     public Vector3 RecoilAmount;
     public float RecoilReturnMult = 3f;
+    public int Ammo = 25;
 
     [SerializeField] protected Transform muzzleFlash;
 
-    protected AudioSource audioSource;
+    [SerializeField] protected AudioSource shootAudioSource;
+    [SerializeField] protected AudioSource clickAudioSource;
+    
     private Vector3 initialPosition;
 
     private void Awake()
     {
         initialPosition = transform.localPosition;
-        audioSource = GetComponent<AudioSource>();
+        shootAudioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
         Bob();
+        HUDText.GunString = GetGunString();
 
         transform.localRotation = Quaternion.Slerp(
             transform.localRotation, 
@@ -44,6 +48,8 @@ public abstract class Gun : MonoBehaviour
     protected abstract void OnShooting();
     protected abstract void OnEndShoot();
 
+    protected abstract string GetGunString();
+
     protected IEnumerator MuzzleFlash(float duration = .05f)
     {
         muzzleFlash.localRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
@@ -54,9 +60,16 @@ public abstract class Gun : MonoBehaviour
 
     protected void PlaySFX(float volume, float pitch)
     {
-        audioSource.volume = volume;
-        audioSource.pitch = pitch;
-        audioSource.Play();
+        shootAudioSource.volume = volume;
+        shootAudioSource.pitch = pitch;
+        shootAudioSource.Play();
+    }
+
+    protected void PlayEmptySFX(float volume, float pitch)
+    {
+        clickAudioSource.volume = volume;
+        clickAudioSource.pitch = pitch;
+        clickAudioSource.Play();
     }
 
     protected void DoRecoil()
