@@ -4,6 +4,7 @@ using UnityEngine.AI;
 public class PlayerController : MonoBehaviour
 {
     public static float MoveMagnitude;
+    public static Vector3 Position;
 
     public float Speed = 10f;
     public float LookMult = 1f;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Look();
+        Position = transform.position;
     }
 
     private void FixedUpdate()
