@@ -6,7 +6,6 @@ public abstract class Gun : MonoBehaviour
     public Vector3 BobAmount;
     public Vector3 RecoilAmount;
     public float RecoilReturnMult = 3f;
-    public int Ammo = 25;
 
     [SerializeField] protected Transform muzzleFlash;
 

@@ -26,13 +26,13 @@ public class Pistol : Gun
 
         lastShotTime = Time.time;
 
-        if (Ammo < 1)
+        if (FoundryMenu.Instance.PistolAmmo < 1)
         {
             PlayEmptySFX(Random.Range(.95f, 1f), Random.Range(1.5f, 1.55f));
             return;
         }
 
-        Ammo--;
+        FoundryMenu.Instance.PistolAmmo--;
 
         StartCoroutine(MuzzleFlash());
         PlaySFX(Random.Range(.95f, 1f), Random.Range(1f, 1.05f));
@@ -49,6 +49,6 @@ public class Pistol : Gun
 
     protected override string GetGunString()
     {
-        return $"Pistol {Ammo}";
+        return $"Pistol {FoundryMenu.Instance.PistolAmmo} / {FoundryMenu.Instance.MaxPistolAmmo}";
     }
 }

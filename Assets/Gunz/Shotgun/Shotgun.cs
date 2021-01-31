@@ -25,13 +25,13 @@ public class Shotgun : Gun
 
         lastShotTime = Time.time;
         
-        if (Ammo < 1)
+        if (FoundryMenu.Instance.ShotgunAmmo < 1)
         {
             PlayEmptySFX(Random.Range(.95f, 1f), Random.Range(1.5f, 1.55f));
             return;
         }
 
-        Ammo--;
+        FoundryMenu.Instance.ShotgunAmmo--;
 
         StartCoroutine(MuzzleFlash());
         PlaySFX(Random.Range(.95f, 1f), Random.Range(1f, 1.05f));
@@ -53,6 +53,6 @@ public class Shotgun : Gun
 
     protected override string GetGunString()
     {
-        return $"Shotgun {Ammo}";
+        return $"Shotgun {FoundryMenu.Instance.ShotgunAmmo} / {FoundryMenu.Instance.MaxShotgunAmmo}";
     }
 }
