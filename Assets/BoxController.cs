@@ -11,6 +11,7 @@ public class BoxController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        GameObject.Find("GetItem").GetComponent<AudioSource>().Play();
         transform.gameObject.SetActive(false);
         OnPickUpMetalScrap.Invoke(Random.Range(3, 6));
 
