@@ -17,6 +17,8 @@ public class FoundryMenu : MonoBehaviour
     //Shotgun
     public int ShotgunAmmo = 15;
     public int MaxShotgunAmmo = 15;
+    public bool UnlockedShotgunHeavySlug = false;
+    public bool UnlockedShotgunSpreadShot = false;
 
     //UI
     [Header("Menus")]
@@ -40,6 +42,11 @@ public class FoundryMenu : MonoBehaviour
     [SerializeField] private Button refillShotgunButton;
     [SerializeField] private Text refillShotgunButtonText;
     [SerializeField] private Button fiveAmmoShotgunButton;
+    [SerializeField] private Button plusFiveMaxShotgunAmmoButton;
+    [SerializeField] private Button shotgunHeavySlugButton;
+    [SerializeField] private Text shotgunHeavySlugText;
+    [SerializeField] private Button shotgunSpreadShotButton;
+    [SerializeField] private Text shotgunSpreadShotText;
 
     private void Awake()
     {
@@ -72,11 +79,21 @@ public class FoundryMenu : MonoBehaviour
 
         //Shotgun buttons
         shotgunAmmoText.text = $"shotgun ammo ({ShotgunAmmo}/{MaxShotgunAmmo})";
+
         refillShotgunButtonText.text = $"refill ({(MaxShotgunAmmo - ShotgunAmmo) * 3} metal scrap)";
         refillShotgunButton.interactable = ShotgunAmmo < MaxShotgunAmmo &&
             ((MaxShotgunAmmo - ShotgunAmmo) * 3 <= MetalScrap);
+
         fiveAmmoShotgunButton.interactable = ShotgunAmmo <= MaxShotgunAmmo - 5 && 
             (MetalScrap >= 15);
+
+        plusFiveMaxShotgunAmmoButton.interactable = MetalScrap >= 50;
+
+        shotgunHeavySlugText.text = UnlockedShotgunHeavySlug ? "purchased" : "150 metal scrap";
+        shotgunHeavySlugButton.interactable = MetalScrap >= 150 && UnlockedShotgunHeavySlug == false;
+
+        shotgunSpreadShotText.text = UnlockedShotgunSpreadShot ? "purchased" : "250 metal scrap";
+        shotgunSpreadShotButton.interactable = MetalScrap >= 250 && UnlockedShotgunSpreadShot == false;
 
         //Cheatyness
         if (Input.GetKeyDown(KeyCode.Backspace) && Application.isEditor) MetalScrap += 10;
@@ -141,4 +158,21 @@ public class FoundryMenu : MonoBehaviour
         ShotgunAmmo += 5;
     }
 
+    public void ClickPlusFiveMaxShotgunAmmo()
+    {
+        MetalScrap -= 50;
+        MaxShotgunAmmo += 10;
+    }
+
+    public void ClickShotgunHeavySlug()
+    {
+        MetalScrap -= 150;
+        UnlockedShotgunHeavySlug = true;
+    }
+
+    public void ClickShotgunSpreadShot()
+    {
+        MetalScrap -= 250;
+        UnlockedShotgunSpreadShot = true;
+    }
 }
