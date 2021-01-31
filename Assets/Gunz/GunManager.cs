@@ -35,10 +35,7 @@ public class GunManager : MonoBehaviour
         if (scrollPosition < -.49) scrollPosition = numGuns - 1;
         if (scrollPosition > numGuns - 1 + .49) scrollPosition = 0;
 
-        if (Mathf.RoundToInt(scrollPosition) == 0)
-            ActiveGun = GunType.Pistol;
-        else
-            ActiveGun = GunType.Shotgun;
+        ActiveGun = guns[Mathf.Clamp(Mathf.RoundToInt(scrollPosition), 0, guns.Length - 1)];
 
         switch (ActiveGun)
         {

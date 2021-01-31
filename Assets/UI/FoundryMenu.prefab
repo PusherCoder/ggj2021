@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8757363098008424448
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1228,7 +1228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6290536259575810047
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1843,6 +1843,7 @@ MonoBehaviour:
   MaxPistolAmmo: 25
   UnlockedPistolHighVelocityRounds: 1
   UnlockedPistolExplosiveRounds: 1
+  UnlockedShotgun: 0
   ShotgunAmmo: 15
   MaxShotgunAmmo: 15
   UnlockedShotgunHeavySlug: 0
@@ -1859,6 +1860,8 @@ MonoBehaviour:
   pistolHighVelocityRoundsText: {fileID: 6809991790575966657}
   pistolExplosiveRoundsButton: {fileID: 4728979389438809878}
   pistolExplosiveRoundsText: {fileID: 4929958197500273988}
+  unlockedShotgunButton: {fileID: 7849733861311636125}
+  unlockedShotgunText: {fileID: 3194021915995897147}
   shotgunAmmoText: {fileID: 651161531470921141}
   refillShotgunButton: {fileID: 7644187405587592070}
   refillShotgunButtonText: {fileID: 4048234887294621767}
@@ -3978,7 +3981,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1864435833855247406}
-        m_MethodName: ClickPlusFiveMaxShotgunAmmo
+        m_MethodName: ClickUnlockShotgun
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
