@@ -68,6 +68,11 @@ public class SpawnManager : MonoBehaviour
 
     private void Spawn(List<EnemySpawner> spawners, int count)
     {
+        for (int i = AllEnemies.Enemies.Count - 1; i >= 0; i--)
+            Destroy(AllEnemies.Enemies[i].gameObject);
+
+        AllEnemies.Enemies.Clear();
+
         Shuffle(spawners);
 
         for (int i = 0; i < Mathf.Min(count, spawners.Count); i++)

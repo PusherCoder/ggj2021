@@ -126,7 +126,14 @@ public class GameController : MonoBehaviour
             boxArraySize += Stage3Boxes.transform.childCount;
             stage3BoxChildren.CopyTo(boxArray, (Stage1Boxes.transform.childCount + Stage2Boxes.transform.childCount));
         }
-        
+
+        if (gameStage == 1)
+            SpawnManager.SpawnZone1.Invoke(10);
+        if (gameStage == 2)
+            SpawnManager.SpawnZone1.Invoke(40);
+        if (gameStage == 3)
+            SpawnManager.SpawnZone1.Invoke(100);
+
         // Activate all the boxes
         for (i = 0; i < boxArraySize; i++)
         {

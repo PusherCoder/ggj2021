@@ -1,28 +1,41 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour
 {
     public Zone SpawnerZone; 
 
-    [SerializeField] private GameObject visual;
     [SerializeField] private SkeletonMissingArm skeletonMissingArmPrefab;
     [SerializeField] private SkeletonMage skeletonMagePrefab;
 
-    private void Awake()
-    {
-        visual.SetActive(false);
-    }
-
     public void SpawnSkeletonMissingArm()
     {
-        SkeletonMissingArm skeletonMissingArm = Instantiate(skeletonMissingArmPrefab);
-        skeletonMissingArm.transform.position = transform.position;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(transform.position, out hit, 1f, NavMesh.AllAreas))
+        {
+            SkeletonMissingArm skeletonMissingArm = Instantiate(skeletonMissingArmPrefab);
+            skeletonMissingArm.GetComponent<NavMeshAgent>().Warp(hit.position);
+            Debug.Log($"Spawning missing arm skeleton at {hit.position} {transform.name}");
+        }
+        else
+        {
+            Debug.LogError($"Spawner {transform.name} failed");
+        }
     }
 
     public void SpawnSkeletonMage()
     {
-        SkeletonMage skeletonMage = Instantiate(skeletonMagePrefab);
-        skeletonMage.transform.position = transform.position;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(transform.position, out hit, 1f, NavMesh.AllAreas))
+        {
+            SkeletonMage skeletonMage = Instantiate(skeletonMagePrefab);
+            skeletonMage.GetComponent<NavMeshAgent>().Warp(hit.position);
+            Debug.Log($"Spawning skeleton mage at {hit.position} {transform.name}");
+        }
+        else
+        {
+            Debug.LogError($"Spawner {transform.name} failed");
+        }
     }
 }
 
