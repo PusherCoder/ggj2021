@@ -5,6 +5,15 @@ public class FoundryMenu : MonoBehaviour
 {
     public static FoundryMenu Instance;
 
+    private const int PLUS_TEN_PISTOL_COST = 30;
+    private const int HIGH_VELOCITY_ROUNDS_COST = 75;
+    private const int EXPLOSIVE_ROUNDS_COST = 125;
+
+    private const int BUY_SHOTGUN_COST = 20;
+    private const int PLUS_FIVE_SHOTGUN_COST = 30;
+    private const int HEAVY_SLUG_COST = 75;
+    private const int SPREAD_SHOT_COST = 125;
+
     //Resources
     public int MetalScrap = 0;
 
@@ -74,17 +83,23 @@ public class FoundryMenu : MonoBehaviour
         fiveAmmoPistolButton.interactable = (PistolAmmo <= MaxPistolAmmo - 5) &&
             (MetalScrap >= 5);
 
-        plusTenMaxPistolAmmoButton.interactable = MetalScrap >= 50;
+        plusTenMaxPistolAmmoButton.interactable = MetalScrap >= PLUS_TEN_PISTOL_COST;
 
-        pistolHighVelocityRoundsText.text = UnlockedPistolHighVelocityRounds ? "purchased" : "150 metal scrap";
-        pistolHighVelocityRoundsButton.interactable = MetalScrap >= 150 && UnlockedPistolHighVelocityRounds == false;
+        pistolHighVelocityRoundsText.text = UnlockedPistolHighVelocityRounds ? 
+            "purchased" : 
+            $"{HIGH_VELOCITY_ROUNDS_COST} metal scrap";
+        pistolHighVelocityRoundsButton.interactable = MetalScrap >= HIGH_VELOCITY_ROUNDS_COST && 
+            UnlockedPistolHighVelocityRounds == false;
 
-        pistolExplosiveRoundsText.text = UnlockedPistolExplosiveRounds ? "purchased" : "250 metal scrap";
-        pistolExplosiveRoundsButton.interactable = MetalScrap >= 250 && UnlockedPistolExplosiveRounds == false;
+        pistolExplosiveRoundsText.text = UnlockedPistolExplosiveRounds ? 
+            "purchased" : 
+            $"{EXPLOSIVE_ROUNDS_COST} metal scrap";
+        pistolExplosiveRoundsButton.interactable = MetalScrap >= EXPLOSIVE_ROUNDS_COST 
+            && UnlockedPistolExplosiveRounds == false;
 
         //Shotgun buttons
-        unlockedShotgunText.text = UnlockedShotgun ? "purchased" : "20 metal scrap";
-        unlockedShotgunButton.interactable = MetalScrap >= 20 && UnlockedShotgun == false;
+        unlockedShotgunText.text = UnlockedShotgun ? "purchased" : $"{BUY_SHOTGUN_COST} metal scrap";
+        unlockedShotgunButton.interactable = MetalScrap >= BUY_SHOTGUN_COST && UnlockedShotgun == false;
 
         shotgunAmmoText.text = $"shotgun ammo ({ShotgunAmmo}/{MaxShotgunAmmo})";
 
@@ -95,13 +110,17 @@ public class FoundryMenu : MonoBehaviour
         fiveAmmoShotgunButton.interactable = ShotgunAmmo <= MaxShotgunAmmo - 5 && 
             (MetalScrap >= 15);
 
-        plusFiveMaxShotgunAmmoButton.interactable = MetalScrap >= 50;
+        plusFiveMaxShotgunAmmoButton.interactable = MetalScrap >= PLUS_FIVE_SHOTGUN_COST;
 
-        shotgunHeavySlugText.text = UnlockedShotgunHeavySlug ? "purchased" : "150 metal scrap";
-        shotgunHeavySlugButton.interactable = MetalScrap >= 150 && UnlockedShotgunHeavySlug == false;
+        shotgunHeavySlugText.text = UnlockedShotgunHeavySlug ? 
+            "purchased" : 
+            $"{HEAVY_SLUG_COST} metal scrap";
+        shotgunHeavySlugButton.interactable = MetalScrap >= HEAVY_SLUG_COST && UnlockedShotgunHeavySlug == false;
 
-        shotgunSpreadShotText.text = UnlockedShotgunSpreadShot ? "purchased" : "250 metal scrap";
-        shotgunSpreadShotButton.interactable = MetalScrap >= 250 && UnlockedShotgunSpreadShot == false;
+        shotgunSpreadShotText.text = UnlockedShotgunSpreadShot ? 
+            "purchased" : 
+            $"{SPREAD_SHOT_COST} metal scrap";
+        shotgunSpreadShotButton.interactable = MetalScrap >= SPREAD_SHOT_COST && UnlockedShotgunSpreadShot == false;
 
         //Cheatyness
         if (Input.GetKeyDown(KeyCode.Backspace) && Application.isEditor) MetalScrap += 10;
@@ -136,26 +155,26 @@ public class FoundryMenu : MonoBehaviour
 
     public void ClickPlusTenMaxPistolAmmo()
     {
-        MetalScrap -= 50;
+        MetalScrap -= PLUS_TEN_PISTOL_COST;
         MaxPistolAmmo += 10;
     }
     
     public void ClickPistolHighVelocityRounds()
     {
-        MetalScrap -= 150;
+        MetalScrap -= HIGH_VELOCITY_ROUNDS_COST;
         UnlockedPistolHighVelocityRounds = true;
     }
 
     public void ClickPistolExplosiveRounds()
     {
-        MetalScrap -= 250;
+        MetalScrap -= EXPLOSIVE_ROUNDS_COST;
         UnlockedPistolExplosiveRounds = true;
     }
 
     //Shotgun
     public void ClickUnlockShotgun()
     {
-        MetalScrap -= 20;
+        MetalScrap -= BUY_SHOTGUN_COST;
         UnlockedShotgun = true;
     }
 
@@ -174,19 +193,19 @@ public class FoundryMenu : MonoBehaviour
 
     public void ClickPlusFiveMaxShotgunAmmo()
     {
-        MetalScrap -= 50;
-        MaxShotgunAmmo += 10;
+        MetalScrap -= PLUS_FIVE_SHOTGUN_COST;
+        MaxShotgunAmmo += 5;
     }
 
     public void ClickShotgunHeavySlug()
     {
-        MetalScrap -= 150;
+        MetalScrap -= HEAVY_SLUG_COST;
         UnlockedShotgunHeavySlug = true;
     }
 
     public void ClickShotgunSpreadShot()
     {
-        MetalScrap -= 250;
+        MetalScrap -= SPREAD_SHOT_COST;
         UnlockedShotgunSpreadShot = true;
     }
 }
