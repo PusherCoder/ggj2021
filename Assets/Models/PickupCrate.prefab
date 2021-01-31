@@ -246,6 +246,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1727784946141688137}
+  - component: {fileID: 1067462930651779822}
+  - component: {fileID: 2252676074448917179}
   m_Layer: 0
   m_Name: PickupCrate
   m_TagString: Untagged
@@ -278,6 +280,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -37.938004, z: 0}
+--- !u!65 &1067462930651779822
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067578760046750707}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 13.733917, y: 5.431023, z: 12.8551655}
+  m_Center: {x: -0.05337458, y: 2.2155108, z: -0.793211}
+--- !u!114 &2252676074448917179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067578760046750707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f4f7c60fc8b43498acf7ea0d28fcf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6330685135484580362
 GameObject:
   m_ObjectHideFlags: 0
