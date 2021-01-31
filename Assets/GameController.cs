@@ -68,7 +68,6 @@ public class GameController : MonoBehaviour
     {
         if (crossfade)
         {
-            Debug.Log("Crossfading");
             if (crossfadeClips[0].volume == 0.0f)
             {
                 crossfadeClips[1].volume = crossfadeVolume;

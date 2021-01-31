@@ -12,6 +12,12 @@ public class HUDText : MonoBehaviour
     [SerializeField] private CanvasGroup gameOver;
     [SerializeField] private CanvasGroup bloodCanvasGroup;
 
+    [SerializeField] private AudioClip hurt1;
+    [SerializeField] private AudioClip hurt2;
+    [SerializeField] private AudioClip hurt3;
+
+    private AudioSource audioSource;
+
     private Text text;
     private float bloodAlpha = 0f;
 
@@ -19,12 +25,22 @@ public class HUDText : MonoBehaviour
     {
         instance = this;
         text = GetComponent<Text>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public static void TakeDamage(int damage)
     {
         Health -= damage;
         instance.bloodAlpha = 1f;
+
+        float random = Random.Range(0f, 1f);
+        if (random < .6f)
+            instance.audioSource.clip = instance.hurt1;
+        else if (random < .95f)
+            instance.audioSource.clip = instance.hurt2;
+        else
+            instance.audioSource.clip = instance.hurt3;
+        instance.audioSource.Play();
     }
 
     private void Update()
