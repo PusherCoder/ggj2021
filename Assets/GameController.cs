@@ -11,11 +11,11 @@ public class GameController : MonoBehaviour
     public GameObject Stage2Fence;
     public GameObject Stage3Fence;
 
-    private int gameStage = 1;
+    private int gameStage = 0;
 
     private void Awake()
     {
-        SetupStage();
+
     }
 
     // Start is called before the first frame update
@@ -28,6 +28,12 @@ public class GameController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ComputerAccess()
+    {
+        gameStage++;
+        SetupStage();
     }
 
     void SetupStage()

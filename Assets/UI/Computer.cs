@@ -19,6 +19,10 @@ public class Computer : MonoBehaviour
         if (playerInTrigger)
         {
             prompt.alpha = 1f;
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                GameObject.Find("Game Controller").GetComponent<GameController>().ComputerAccess();
+            }
         }
         else
             prompt.alpha = 0f;
