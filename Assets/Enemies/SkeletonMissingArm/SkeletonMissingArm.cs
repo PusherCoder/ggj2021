@@ -25,23 +25,6 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
 
     private void Update()
     {
-        if (Health <= 0) return; 
-
-        navMeshAgent.SetDestination(PlayerController.Position);
-        animator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
-
-        if (Vector3.Distance(transform.position, PlayerController.Position) < 2)
-        {
-            float timeSinceLastSwing = Time.time - lastSwingTime;
-            if (timeSinceLastSwing >= TimeBetweenSwings)
-            {
-                lastSwingTime = Time.time;
-                animator.ResetTrigger("Attack");
-                animator.SetTrigger("Attack");
-                audioSource.Play();
-            }
-        }
-
         flashTime -= Time.deltaTime;
         if (flashTime > 0)
         {
@@ -53,6 +36,33 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
 
             foreach (Renderer renderer in renderers)
                 renderer.material.SetFloat("_WhiteAmount", 0f);
+        }
+
+        if (Health <= 0) return; 
+
+        navMeshAgent.SetDestination(PlayerController.Position);
+        animator.SetFloat("Speed", navMeshAgent.velocity.magnitude / 10);
+
+        if (Vector3.Distance(transform.position, PlayerController.Position) < 2)
+        {
+            float timeSinceLastSwing = Time.time - lastSwingTime;
+            if (timeSinceLastSwing >= TimeBetweenSwings)
+            {
+                lastSwingTime = Time.time;
+                animator.ResetTrigger("Attack");
+                animator.SetTrigger("Attack");
+                audioSource.Play();
+                StartCoroutine(CheckIfDamagedPlayer());
+            }
+        }
+    }
+
+    private IEnumerator CheckIfDamagedPlayer()
+    {
+        yield return new WaitForSeconds(.33f);
+        if (Vector3.Distance(transform.position, PlayerController.Position) < 1.5)
+        {
+            HUDText.Health -= 15;        
         }
     }
 
