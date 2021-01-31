@@ -4,13 +4,17 @@ using UnityEngine.AI;
 
 public class SkeletonMissingArm : MonoBehaviour, IDamagable
 {
-    public int Health = 100;
+    private const int MAX_HEALTH = 100; 
+
+    public int Health = MAX_HEALTH;
 
     public float TimeBetweenSwings = 2f;
     private float lastSwingTime = -999f;
 
     [SerializeField] private Renderer[] renderers;
     private float flashTime;
+
+    private bool seenPlayer = false;
 
     private NavMeshAgent navMeshAgent;
     private Animator animator;
@@ -25,6 +29,14 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
 
     private void Update()
     {
+        FlashWhenHit();
+        if (Health <= 0) return;
+        CheckSeenPlayer();
+        HuntPlayer();
+    }
+
+    private void FlashWhenHit()
+    {
         flashTime -= Time.deltaTime;
         if (flashTime > 0)
         {
@@ -37,13 +49,36 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
             foreach (Renderer renderer in renderers)
                 renderer.material.SetFloat("_WhiteAmount", 0f);
         }
+    }
 
-        if (Health <= 0) return; 
+    private void CheckSeenPlayer()
+    {
+        bool huntingPlayer = seenPlayer || Health < MAX_HEALTH;
+        if (huntingPlayer) return;
 
-        navMeshAgent.SetDestination(PlayerController.Position);
+        if (Vector3.Distance(transform.position, PlayerController.Position) > 40f) return;
+
+        //Don't check every frame
+        if (Random.Range(0f, 100f) < 10f)
+        {
+            Ray ray = new Ray();
+            ray.origin = transform.position + Vector3.up;
+            ray.direction = PlayerController.Position - transform.position;
+
+            if (Physics.Raycast(ray, Vector3.Distance(PlayerController.Position, transform.position) - 1) == false)
+                seenPlayer = true;
+        }
+    }
+
+    private void HuntPlayer()
+    {
+        bool huntingPlayer = seenPlayer || Health < MAX_HEALTH;
+
+        if (huntingPlayer)
+            navMeshAgent.SetDestination(PlayerController.Position);
         animator.SetFloat("Speed", navMeshAgent.velocity.magnitude / 10);
 
-        if (Vector3.Distance(transform.position, PlayerController.Position) < 2)
+        if (Vector3.Distance(transform.position, PlayerController.Position) < 2 && huntingPlayer)
         {
             float timeSinceLastSwing = Time.time - lastSwingTime;
             if (timeSinceLastSwing >= TimeBetweenSwings)
