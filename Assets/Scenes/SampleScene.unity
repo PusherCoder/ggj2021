@@ -13906,6 +13906,12 @@ MonoBehaviour:
   Stage3Boxes: {fileID: 2044948974}
   Stage2Fence: {fileID: 4206255279630532762}
   Stage3Fence: {fileID: 2000975053}
+  Stage0Screen: {fileID: 2100000, guid: 2bb8dbe07902ad249980b3dfa4795be5, type: 2}
+  Stage1Screen: {fileID: 2100000, guid: e55da77ad6eab344caf7aae3f451bd4f, type: 2}
+  Stage2Screen: {fileID: 2100000, guid: 96d748a598a07d54f8b6a06d8ec18697, type: 2}
+  Stage3Screen: {fileID: 2100000, guid: 489858f32bdaf0d4fb3183f674e8bf3e, type: 2}
+  ComputerScreen: {fileID: 226509723}
+  gameStage: 0
 --- !u!4 &2037141068
 Transform:
   m_ObjectHideFlags: 0
@@ -19211,7 +19217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f823eeda85d63d047940f209d0515f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: {fileID: 1669529335}
+  prompt: {fileID: 1669529333}
 --- !u!65 &5315458217110626647
 BoxCollider:
   m_ObjectHideFlags: 0

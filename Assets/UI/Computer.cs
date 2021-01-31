@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Computer : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup prompt;
+    [SerializeField] private GameObject prompt;
     private bool playerInTrigger = false;
 
     // Start is called before the first frame update
@@ -18,14 +19,15 @@ public class Computer : MonoBehaviour
     {
         if (playerInTrigger)
         {
-            prompt.alpha = 1f;
+            prompt.GetComponent<CanvasGroup>().alpha = 1f;
             if (Input.GetKeyDown(KeyCode.F))
             {
                 GameObject.Find("Game Controller").GetComponent<GameController>().ComputerAccess();
+                prompt.GetComponent<Text>().text = "go find my cute lamb doll. i threw it away accidentally.";
             }
         }
         else
-            prompt.alpha = 0f;
+            prompt.GetComponent<CanvasGroup>().alpha = 0f;
 
     }
 

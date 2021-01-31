@@ -11,7 +11,13 @@ public class GameController : MonoBehaviour
     public GameObject Stage2Fence;
     public GameObject Stage3Fence;
 
-    private int gameStage = 0;
+    public Material Stage0Screen;
+    public Material Stage1Screen;
+    public Material Stage2Screen;
+    public Material Stage3Screen;
+    public GameObject ComputerScreen;
+
+    public int gameStage = 0;
 
     private void Awake()
     {
@@ -34,6 +40,7 @@ public class GameController : MonoBehaviour
     {
         gameStage++;
         SetupStage();
+        ComputerScreen.GetComponent<MeshRenderer>().material = Stage1Screen;
     }
 
     void SetupStage()
@@ -86,5 +93,9 @@ public class GameController : MonoBehaviour
                 i++;
             }
         }
+
+        // Deactivate fences
+        if (gameStage > 1) Stage2Fence.SetActive(false);
+        if (gameStage > 1) Stage3Fence.SetActive(false);
     }
 }
