@@ -8,10 +8,17 @@ public class Computer : MonoBehaviour
     [SerializeField] private GameObject prompt;
     private bool playerInTrigger = false;
 
+    string[] computerMessages = {
+        "press 'f' to read your email.",
+        "go find my cute lamb doll. i threw it away accidentally.",
+        "would you be a dear and search the trash for my missing faucet?",
+        "i'm lost without my favorite painting. please find it."
+    };
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        prompt.GetComponent<Text>().text = computerMessages[GameObject.Find("Game Controller").GetComponent<GameController>().gameStage];
     }
 
     // Update is called once per frame
@@ -23,7 +30,7 @@ public class Computer : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 GameObject.Find("Game Controller").GetComponent<GameController>().ComputerAccess();
-                prompt.GetComponent<Text>().text = "go find my cute lamb doll. i threw it away accidentally.";
+                prompt.GetComponent<Text>().text = computerMessages[GameObject.Find("Game Controller").GetComponent<GameController>().gameStage];
             }
         }
         else

@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     public GameObject ComputerScreen;
 
     public int gameStage = 0;
+    private int nextStage = 1;
 
     private void Awake()
     {
@@ -38,9 +39,11 @@ public class GameController : MonoBehaviour
 
     public void ComputerAccess()
     {
-        gameStage++;
+        gameStage = nextStage++;
         SetupStage();
-        ComputerScreen.GetComponent<MeshRenderer>().material = Stage1Screen;
+        if (gameStage == 1) ComputerScreen.GetComponent<MeshRenderer>().material = Stage1Screen;
+        if (gameStage == 2) ComputerScreen.GetComponent<MeshRenderer>().material = Stage2Screen;
+        if (gameStage == 3) ComputerScreen.GetComponent<MeshRenderer>().material = Stage3Screen;
     }
 
     void SetupStage()
@@ -96,6 +99,6 @@ public class GameController : MonoBehaviour
 
         // Deactivate fences
         if (gameStage > 1) Stage2Fence.SetActive(false);
-        if (gameStage > 1) Stage3Fence.SetActive(false);
+        if (gameStage > 2) Stage3Fence.SetActive(false);
     }
 }
