@@ -27,7 +27,7 @@ public class Computer : MonoBehaviour
         if (playerInTrigger)
         {
             prompt.GetComponent<CanvasGroup>().alpha = 1f;
-            if (Input.GetKeyDown(KeyCode.F))
+            if ((Input.GetKeyDown(KeyCode.F)) && (!GameObject.Find("Game Controller").GetComponent<GameController>().missionStarted))
             {
                 GameObject.Find("Game Controller").GetComponent<GameController>().ComputerAccess();
                 prompt.GetComponent<Text>().text = computerMessages[GameObject.Find("Game Controller").GetComponent<GameController>().gameStage];
@@ -41,7 +41,13 @@ public class Computer : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerController>() != null)
+        {
             playerInTrigger = true;
+            if (!GameObject.Find("Game Controller").GetComponent<GameController>().missionStarted)
+            {
+                prompt.GetComponent<Text>().text = computerMessages[GameObject.Find("Game Controller").GetComponent<GameController>().gameStage];
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
