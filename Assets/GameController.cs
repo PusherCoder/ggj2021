@@ -25,11 +25,22 @@ public class GameController : MonoBehaviour
     public Sprite Nightmare2;
     public Sprite Nightmare3;
 
+    public AudioSource HouseMusic;
+    public AudioClip[] houseClips;
+    public AudioSource ActionMusic;
+    public AudioClip[] actionClips;
+    public AudioSource CalmMusic;
+    public AudioClip[] calmClips;
+
     public int gameStage = 0;
     public bool missionStarted = false;
     private int nextStage = 1;
     private int boxWithPrize = 0;
     private int boxesPickedUp = 0;
+
+    private bool crossfade;
+    private AudioSource[] crossfadeClips = new AudioSource[2];
+    private float crossfadeVolume = 0.45f;
 
     private void Awake()
     {
@@ -39,13 +50,33 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        HouseMusic.clip = houseClips[Random.Range(0, houseClips.Length)];
+        HouseMusic.Play();
+        HouseMusic.volume = crossfadeVolume;
+        ActionMusic.clip = actionClips[Random.Range(0, actionClips.Length)];
+        ActionMusic.Play();
+        CalmMusic.clip = calmClips[Random.Range(0, calmClips.Length)];
+        CalmMusic.Play();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (crossfade)
+        {
+            Debug.Log("Crossfading");
+            if (crossfadeClips[0].volume == 0.0f)
+            {
+                crossfadeClips[1].volume = crossfadeVolume;
+                crossfade = false;
+            }
+            else
+            {
+                crossfadeClips[0].volume -= 0.005f;
+                crossfadeClips[1].volume += 0.005f;
+            }
 
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -60,10 +91,18 @@ public class GameController : MonoBehaviour
                     missionStarted = false;
                     gameStage = 0;
                     ComputerScreen.GetComponent<MeshRenderer>().material = Stage0Screen;
+
+                    crossfadeClips[0] = CalmMusic;
+                    crossfadeClips[1] = HouseMusic;
+                    crossfade = true;
                 }
                 else
                 {
                     Door.SetActive(false);
+
+                    crossfadeClips[0] = HouseMusic;
+                    crossfadeClips[1] = CalmMusic;
+                    crossfade = true;
                 }
             }
         }
