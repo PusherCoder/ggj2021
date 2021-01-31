@@ -4,11 +4,14 @@ using UnityEngine.AI;
 
 public class SkeletonMage : MonoBehaviour, IDamagable
 {
-    private const int MAX_HEALTH = 200;
+    private const int MAX_HEALTH = 80;
 
     public int Health = MAX_HEALTH;
 
     [SerializeField] private LayerMask checkPlayerLayerMask;
+
+    [SerializeField] private Transform visualsTransform;
+    [SerializeField] private CapsuleCollider collider;
 
     [SerializeField] private Fireball fireballPrefab;
     [SerializeField] private Transform spawnFireballTransform;
@@ -23,8 +26,11 @@ public class SkeletonMage : MonoBehaviour, IDamagable
     private NavMeshAgent navMeshAgent;
     private AudioSource audioSource;
 
+    private float bobOffset;
+
     private void Awake()
     {
+        bobOffset = Random.Range(0f, 999f);
         navMeshAgent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
         AllEnemies.Enemies.Add(gameObject);
@@ -36,6 +42,7 @@ public class SkeletonMage : MonoBehaviour, IDamagable
         if (Health <= 0) return;
         CheckSeenPlayer();
         HuntPlayer();
+        Bob();
     }
 
     private void FlashWhenHit()
@@ -80,6 +87,12 @@ public class SkeletonMage : MonoBehaviour, IDamagable
 
         if (huntingPlayer == false) return;
 
+        transform.LookAt(PlayerController.Position);
+        transform.rotation = Quaternion.Euler(new Vector3(
+            0f,
+            transform.eulerAngles.y,
+            0f));
+
         navMeshAgent.SetDestination(PlayerController.Position);
 
         float timeSinceLastShot = Time.time - lastShotTime;
@@ -89,19 +102,18 @@ public class SkeletonMage : MonoBehaviour, IDamagable
             fireball.transform.position = spawnFireballTransform.position;
             fireball.MoveVector = (PlayerController.Position + Vector3.up ) - spawnFireballTransform.position;
             fireball.MoveVector.Normalize();
-            fireball.MoveVector *= 25f;
+            fireball.MoveVector *= 35f;
 
             lastShotTime = Time.time;
             audioSource.Play();
-            StartCoroutine(CheckIfDamagedPlayer());
         }
     }
 
-    private IEnumerator CheckIfDamagedPlayer()
+    private void Bob()
     {
-        yield return new WaitForSeconds(.33f);
-        if (Vector3.Distance(transform.position, PlayerController.Position) < 1.5 && Health > 0)
-            HUDText.TakeDamage(10);
+        Vector3 position = new Vector3(0f, Mathf.Sin(Time.time * 2f + bobOffset) * .5f, 0f);
+        visualsTransform.localPosition = position;
+        collider.center = position + (Vector3.up * 3f);
     }
 
     public void TakeDamage(int amount)
