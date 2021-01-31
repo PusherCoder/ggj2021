@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
     public GameObject Stage2Fence;
     public GameObject Stage3Fence;
 
+    public GameObject Door;
+
     public Material Stage0Screen;
     public Material Stage1Screen;
     public Material Stage2Screen;
@@ -34,7 +36,17 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<PlayerController>() != null)
+        {
+            if (gameStage != 0)
+            {
+                Door.SetActive(false);
+            }
+        }
     }
 
     public void ComputerAccess()
