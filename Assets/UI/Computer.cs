@@ -12,7 +12,8 @@ public class Computer : MonoBehaviour
         "press 'f' to read your email.",
         "go find my cute lamb doll. i threw it away accidentally.",
         "would you be a dear and search the trash for my missing faucet?",
-        "i'm lost without my favorite painting. please find it."
+        "i'm lost without my favorite painting. please find it.",
+        "eat at wendys"
     };
 
     // Start is called before the first frame update

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -115,6 +116,10 @@ public class GameController : MonoBehaviour
 
     public void ComputerAccess()
     {
+        if (nextStage == 4)
+        {
+            SceneManager.LoadScene("EndCard", LoadSceneMode.Single);
+        }
         gameStage = nextStage++;
         SetupStage();
         if (gameStage == 1) ComputerScreen.GetComponent<MeshRenderer>().material = Stage1Screen;
@@ -200,6 +205,7 @@ public class GameController : MonoBehaviour
         if (gameStage > 2) Stage3Fence.SetActive(false);
 
         // Determine the magic box that contains the nightmare fuel
-        boxWithPrize = boxesToKill + Random.Range(0, boxesToKill/3);
+        boxWithPrize = 2;
+        //boxWithPrize = boxesToKill + Random.Range(0, boxesToKill/3);
     }
 }
