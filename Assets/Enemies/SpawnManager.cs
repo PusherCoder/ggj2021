@@ -1,8 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SpawnManager : MonoBehaviour
 {
+    public static SpawnEvent SpawnZone1 = new SpawnEvent();
+    public static SpawnEvent SpawnZone1And2 = new SpawnEvent();
+    public static SpawnEvent SpawnZone1And2And3 = new SpawnEvent();
+
     List<EnemySpawner> zone1Spawners = new List<EnemySpawner>();
     List<EnemySpawner> zone2Spawners = new List<EnemySpawner>();
     List<EnemySpawner> zone3Spawners = new List<EnemySpawner>();
@@ -26,7 +31,9 @@ public class SpawnManager : MonoBehaviour
             }
         }
 
-        SpawnInZone1(2);
+        SpawnZone1.AddListener(SpawnInZone1);
+        SpawnZone1And2.AddListener(SpawnInZone1And2);
+        SpawnZone1And2And3.AddListener(SpawnInZone1And2And3);
     }
 
     private void SpawnInZone1(int count)
@@ -88,3 +95,5 @@ public class SpawnManager : MonoBehaviour
         }
     }
 }
+
+public class SpawnEvent : UnityEvent<int> { }
