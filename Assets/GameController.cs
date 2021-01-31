@@ -31,27 +31,33 @@ public class GameController : MonoBehaviour
     {
         int i = 0;
         GameObject[] stage1BoxChildren = new GameObject[Stage1Boxes.transform.childCount];
-        Debug.Log("There are " + Stage1Boxes.transform.childCount + " children.");
+        GameObject[] stage2BoxChildren = new GameObject[Stage2Boxes.transform.childCount];
+        GameObject[] stage3BoxChildren = new GameObject[Stage3Boxes.transform.childCount];
 
-        if (gameStage==1)
+        // Calculate the number of boxes that need to be disposed of
+        int boxesToKill = Stage1Boxes.transform.childCount / 3;
+        boxesToKill += (gameStage > 1) ? Stage2Boxes.transform.childCount / 3 : 0;
+        boxesToKill += (gameStage > 2) ? Stage3Boxes.transform.childCount / 3 : 0;
+
+        // Generate the list of boxes for all three stages
+        foreach (Transform child in Stage1Boxes.transform) stage1BoxChildren[i++] = child.gameObject;
+        foreach (Transform child in Stage2Boxes.transform) stage2BoxChildren[i++] = child.gameObject;
+        foreach (Transform child in Stage3Boxes.transform) stage3BoxChildren[i++] = child.gameObject;
+
+        // Concatenate the arrays based on the current stage
+        GameObject[] boxArray = new GameObject[Stage1Boxes.transform.childCount + Stage2Boxes.transform.childCount + Stage3Boxes.transform.childCount];
+        stage1BoxChildren.CopyTo(boxArray, 0);
+        if (gameStage > 1) stage2BoxChildren.CopyTo(boxArray, Stage1Boxes.transform.childCount);
+        if (gameStage > 2) stage3BoxChildren.CopyTo(boxArray, (Stage1Boxes.transform.childCount + Stage2Boxes.transform.childCount));
+
+        // Deactive the appropriate number of boxes
+        for ( i = 0; i < boxesToKill; )
         {
-            // Get the box threshold numbers
-            int boxesToKill = Stage1Boxes.transform.childCount / 3;
-            // Get the list of boxes
-            foreach ( Transform child in Stage1Boxes.transform )
+            int boxToKill = Random.Range(0, boxArray.Length);
+            if (boxArray[boxToKill].activeInHierarchy == true)
             {
-                stage1BoxChildren[i] = child.gameObject;
+                boxArray[boxToKill].SetActive(false);
                 i++;
-            }
-            // Deactivate 1/3 of the boxes
-            for (i = 0; i < boxesToKill; )
-            {
-                int boxToKill = Random.Range(0, Stage1Boxes.transform.childCount);
-                if( stage1BoxChildren[boxToKill].activeInHierarchy == true )
-                {
-                    stage1BoxChildren[boxToKill].SetActive(false);
-                    i++;
-                }
             }
         }
     }

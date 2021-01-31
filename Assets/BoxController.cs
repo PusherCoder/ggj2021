@@ -12,7 +12,6 @@ public class BoxController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collided with me!");
         transform.gameObject.SetActive(false);
     }
 
