@@ -55,6 +55,8 @@ public class FoundryMenu : MonoBehaviour
     {
         Instance = this;
         BoxController.OnPickUpMetalScrap.AddListener((int amount) => { MetalScrap += amount; });
+        BoxController.OnPickUpPistolAmmo.AddListener((int amount) => { PistolAmmo += amount; });
+        BoxController.OnPickUpShotgunAmmo.AddListener((int amount) => { ShotgunAmmo += amount; });
     }
 
     private void Update()

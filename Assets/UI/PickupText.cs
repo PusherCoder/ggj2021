@@ -11,6 +11,8 @@ public class PickupText : MonoBehaviour
     private void Awake()
     {
         BoxController.OnPickUpMetalScrap.AddListener(PickUpScrap);
+        BoxController.OnPickUpPistolAmmo.AddListener(PickUpPistolAmmo);
+        BoxController.OnPickUpShotgunAmmo.AddListener(PickUpShotgunAmmo);
         text = GetComponent<Text>();
     }
 
@@ -35,6 +37,32 @@ public class PickupText : MonoBehaviour
         };
 
         lines.Enqueue(pickUpScrapLine);
+
+        RefreshText();
+    }
+
+    private void PickUpPistolAmmo(int amount)
+    {
+        PickUpScrapLine pickUpPistoAmmoLine = new PickUpScrapLine
+        {
+            Line = $"Picked up {amount} pistol ammo",
+            CreatedAt = Time.time
+        };
+
+        lines.Enqueue(pickUpPistoAmmoLine);
+
+        RefreshText();
+    }
+
+    private void PickUpShotgunAmmo(int amount)
+    {
+        PickUpScrapLine pickUpShotgunAmmo = new PickUpScrapLine
+        {
+            Line = $"Picked up {amount} shotgun ammo",
+            CreatedAt = Time.time
+        };
+
+        lines.Enqueue(pickUpShotgunAmmo);
 
         RefreshText();
     }
