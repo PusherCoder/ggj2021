@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    public static UnityEvent CrossedThreshold = new UnityEvent();
+
     public GameObject Stage1Boxes;
     public GameObject Stage2Boxes;
     public GameObject Stage3Boxes;
@@ -82,6 +85,8 @@ public class GameController : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerController>() != null)
         {
+            CrossedThreshold.Invoke();
+
             if (gameStage != 0)
             {
                 if (boxesPickedUp > boxWithPrize)

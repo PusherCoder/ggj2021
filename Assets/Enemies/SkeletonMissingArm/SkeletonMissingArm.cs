@@ -28,6 +28,14 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
         animator = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
         AllEnemies.Enemies.Add(gameObject);
+
+        GameController.CrossedThreshold.AddListener(LosePlayer);
+    }
+
+    private void LosePlayer()
+    {
+        seenPlayer = false;
+        Health = MAX_HEALTH;
     }
 
     private void Update()
@@ -118,6 +126,8 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
         float dissolve = 0f;
         flashTime = 999f;
         navMeshAgent.speed = 1f;
+
+        GameController.CrossedThreshold.RemoveListener(LosePlayer);
 
         while (dissolve < 1)
         {
