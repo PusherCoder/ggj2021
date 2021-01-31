@@ -18,9 +18,14 @@ public class Fireball : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.GetComponent<SkeletonMage>() != null) return;
+
         PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
+        IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
         if (playerController != null)
             HUDText.TakeDamage(10);
+        if (damagable != null)
+            damagable.TakeDamage(50);
 
         Destroy(gameObject);
     }

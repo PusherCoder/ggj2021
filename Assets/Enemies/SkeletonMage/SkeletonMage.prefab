@@ -292,7 +292,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1591
   visualsTransform: {fileID: 7149371577393931430}
-  collider: {fileID: 7918796137248703121}
+  capsuleCollider: {fileID: 7918796137248703121}
   fireballPrefab: {fileID: -8217839600763380232, guid: adad6e3c98858224cb4d72790b68ac80,
     type: 3}
   spawnFireballTransform: {fileID: 5522908555327531437}

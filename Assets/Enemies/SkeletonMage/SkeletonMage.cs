@@ -11,7 +11,7 @@ public class SkeletonMage : MonoBehaviour, IDamagable
     [SerializeField] private LayerMask checkPlayerLayerMask;
 
     [SerializeField] private Transform visualsTransform;
-    [SerializeField] private CapsuleCollider collider;
+    [SerializeField] private CapsuleCollider capsuleCollider;
 
     [SerializeField] private Fireball fireballPrefab;
     [SerializeField] private Transform spawnFireballTransform;
@@ -113,7 +113,7 @@ public class SkeletonMage : MonoBehaviour, IDamagable
     {
         Vector3 position = new Vector3(0f, Mathf.Sin(Time.time * 2f + bobOffset) * .5f, 0f);
         visualsTransform.localPosition = position;
-        collider.center = position + (Vector3.up * 3f);
+        capsuleCollider.center = position + (Vector3.up * 3f);
     }
 
     public void TakeDamage(int amount)
