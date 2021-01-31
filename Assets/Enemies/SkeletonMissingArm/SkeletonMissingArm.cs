@@ -25,6 +25,7 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
+        AllEnemies.Enemies.Add(gameObject);
     }
 
     private void Update()
@@ -123,6 +124,7 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
             yield return new WaitForEndOfFrame();
         }
 
+        AllEnemies.Enemies.Remove(gameObject);
         Destroy(gameObject);
     }
 }

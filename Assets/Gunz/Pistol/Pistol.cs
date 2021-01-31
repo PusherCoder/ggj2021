@@ -44,6 +44,22 @@ public class Pistol : Gun
             SparksPsSpawner.OnSpawnSparksParticles.Invoke(hit.Position, hit.Normal);
             IDamagable damagable = hit.Object.GetComponent<IDamagable>();
             int damage = FoundryMenu.Instance.UnlockedPistolHighVelocityRounds ? 60 : 40;
+
+            if (FoundryMenu.Instance.UnlockedPistolExplosiveRounds)
+            {
+                SparksPsSpawner.OnSpawnExplosion.Invoke(hit.Position);
+                foreach (GameObject enemyGo in AllEnemies.Enemies)
+                {
+                    float distance = Vector3.Distance(hit.Position, enemyGo.transform.position);
+                    if (distance <= 5)
+                    {
+                        IDamagable explosiveDamagable = enemyGo.GetComponent<IDamagable>();
+                        if (explosiveDamagable != null)
+                            explosiveDamagable.TakeDamage(40);
+                    }
+                }
+            }
+
             if (damagable != null) damagable.TakeDamage(damage);
         }
     }

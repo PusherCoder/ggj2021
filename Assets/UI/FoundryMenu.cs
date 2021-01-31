@@ -6,7 +6,7 @@ public class FoundryMenu : MonoBehaviour
     public static FoundryMenu Instance;
 
     //Resources
-    public int MetalScrap = 20;
+    public int MetalScrap = 0;
 
     //Pistol
     public int PistolAmmo = 25;
@@ -44,6 +44,7 @@ public class FoundryMenu : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        BoxController.OnPickUpMetalScrap.AddListener((int amount) => { MetalScrap += amount; });
     }
 
     private void Update()

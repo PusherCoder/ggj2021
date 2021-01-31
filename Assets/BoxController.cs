@@ -1,23 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BoxController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static PickupEvent OnPickUpMetalScrap = new PickupEvent();
 
     private void OnTriggerEnter(Collider other)
     {
         transform.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        OnPickUpMetalScrap.Invoke(Random.Range(2, 5));
     }
 }
+
+public class PickupEvent : UnityEvent<int> { }

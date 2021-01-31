@@ -1495,11 +1495,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17979757c1f4aa342be0b93cade9cf45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MetalScrap: 20
+  MetalScrap: 0
   PistolAmmo: 25
   MaxPistolAmmo: 25
   UnlockedPistolHighVelocityRounds: 1
-  UnlockedPistolExplosiveRounds: 0
+  UnlockedPistolExplosiveRounds: 1
   ShotgunAmmo: 15
   MaxShotgunAmmo: 15
   pistolMenu: {fileID: 837838942197696037}

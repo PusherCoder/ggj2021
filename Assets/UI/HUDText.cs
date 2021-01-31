@@ -40,6 +40,7 @@ public class HUDText : MonoBehaviour
             if (gameOver.alpha > .85f && Input.GetMouseButtonDown(0))
             {
                 Health = 100;
+                AllEnemies.Enemies.Clear();
                 Time.timeScale = 1f;
                 Scene scene = SceneManager.GetActiveScene(); 
                 SceneManager.LoadScene(scene.name);
