@@ -24,15 +24,17 @@ public class SkeletonMage : MonoBehaviour, IDamagable
     private bool seenPlayer = false;
 
     private NavMeshAgent navMeshAgent;
-    private AudioSource audioSource;
 
     private float bobOffset;
+
+    [SerializeField] private AudioSource attackAudio;
+    [SerializeField] private AudioSource alertAudio;
+    private bool beenAlerted = false;
 
     private void Awake()
     {
         bobOffset = Random.Range(0f, 999f);
         navMeshAgent = GetComponent<NavMeshAgent>();
-        audioSource = GetComponent<AudioSource>();
         AllEnemies.Enemies.Add(gameObject);
 
         GameController.CrossedThreshold.AddListener(LosePlayer);
@@ -93,7 +95,17 @@ public class SkeletonMage : MonoBehaviour, IDamagable
     {
         bool huntingPlayer = seenPlayer || Health < MAX_HEALTH;
 
-        if (huntingPlayer == false) return;
+        if (huntingPlayer == false)
+        {
+            lastShotTime = Time.time;
+            return;
+        }
+
+        if (beenAlerted == false)
+        {
+            beenAlerted = true;
+            alertAudio.Play();
+        }
 
         transform.LookAt(PlayerController.Position);
         transform.rotation = Quaternion.Euler(new Vector3(
@@ -113,7 +125,7 @@ public class SkeletonMage : MonoBehaviour, IDamagable
             fireball.MoveVector *= 35f;
 
             lastShotTime = Time.time;
-            audioSource.Play();
+            attackAudio.Play();
         }
     }
 

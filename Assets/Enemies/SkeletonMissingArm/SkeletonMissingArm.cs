@@ -20,13 +20,15 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
 
     private NavMeshAgent navMeshAgent;
     private Animator animator;
-    private AudioSource audioSource;
+
+    [SerializeField] private AudioSource attackAudio;
+    [SerializeField] private AudioSource alertAudio;
+    private bool beenAlerted = false;
 
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
-        audioSource = GetComponent<AudioSource>();
         AllEnemies.Enemies.Add(gameObject);
 
         GameController.CrossedThreshold.AddListener(LosePlayer);
@@ -98,8 +100,17 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
                 lastSwingTime = Time.time;
                 animator.ResetTrigger("Attack");
                 animator.SetTrigger("Attack");
-                audioSource.Play();
+                attackAudio.Play();
                 StartCoroutine(CheckIfDamagedPlayer());
+            }
+        }
+
+        if (huntingPlayer)
+        {
+            if (beenAlerted == false)
+            {
+                beenAlerted = true;
+                alertAudio.Play();
             }
         }
     }
