@@ -43,7 +43,8 @@ public class Pistol : Gun
         {
             SparksPsSpawner.OnSpawnSparksParticles.Invoke(hit.Position, hit.Normal);
             IDamagable damagable = hit.Object.GetComponent<IDamagable>();
-            if (damagable != null) damagable.TakeDamage(40);
+            int damage = FoundryMenu.Instance.UnlockedPistolHighVelocityRounds ? 60 : 40;
+            if (damagable != null) damagable.TakeDamage(damage);
         }
     }
 

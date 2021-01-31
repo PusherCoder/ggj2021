@@ -21,7 +21,7 @@ public class Shotgun : Gun
     private void Shoot()
     {
         float timeSinceLastShot = Time.time - lastShotTime;
-        if (timeSinceLastShot < .5f) return;
+        if (timeSinceLastShot < 1f) return;
 
         lastShotTime = Time.time;
         

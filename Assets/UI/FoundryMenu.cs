@@ -11,6 +11,8 @@ public class FoundryMenu : MonoBehaviour
     //Pistol
     public int PistolAmmo = 25;
     public int MaxPistolAmmo = 25;
+    public bool UnlockedPistolHighVelocityRounds = false;
+    public bool UnlockedPistolExplosiveRounds = false;
 
     //Shotgun
     public int ShotgunAmmo = 15;
@@ -27,6 +29,11 @@ public class FoundryMenu : MonoBehaviour
     [SerializeField] private Button refillPistolButton;
     [SerializeField] private Text refillPistolButtonText;
     [SerializeField] private Button fiveAmmoPistolButton;
+    [SerializeField] private Button plusTenMaxPistolAmmoButton;
+    [SerializeField] private Button pistolHighVelocityRoundsButton;
+    [SerializeField] private Text pistolHighVelocityRoundsText;
+    [SerializeField] private Button pistolExplosiveRoundsButton;
+    [SerializeField] private Text pistolExplosiveRoundsText;
 
     [Header("Shotgun")]
     [SerializeField] private Text shotgunAmmoText;
@@ -46,11 +53,21 @@ public class FoundryMenu : MonoBehaviour
 
         //Pistol buttons
         pistolAmmoText.text = $"pistol ammo ({PistolAmmo}/{MaxPistolAmmo})";
+
         refillPistolButtonText.text = $"refill ({(MaxPistolAmmo - PistolAmmo)} metal scrap)";
         refillPistolButton.interactable = (PistolAmmo < MaxPistolAmmo) && 
             (MaxPistolAmmo - PistolAmmo <= MetalScrap);
+
         fiveAmmoPistolButton.interactable = (PistolAmmo <= MaxPistolAmmo - 5) &&
             (MetalScrap >= 5);
+
+        plusTenMaxPistolAmmoButton.interactable = MetalScrap >= 50;
+
+        pistolHighVelocityRoundsText.text = UnlockedPistolHighVelocityRounds ? "purchased" : "150 metal scrap";
+        pistolHighVelocityRoundsButton.interactable = MetalScrap >= 150 && UnlockedPistolHighVelocityRounds == false;
+
+        pistolExplosiveRoundsText.text = UnlockedPistolExplosiveRounds ? "purchased" : "250 metal scrap";
+        pistolExplosiveRoundsButton.interactable = MetalScrap >= 250 && UnlockedPistolExplosiveRounds == false;
 
         //Shotgun buttons
         shotgunAmmoText.text = $"shotgun ammo ({ShotgunAmmo}/{MaxShotgunAmmo})";
@@ -64,6 +81,7 @@ public class FoundryMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Backspace) && Application.isEditor) MetalScrap += 10;
     }
 
+    //Switch menus
     public void ClickPistolMenu()
     {
         pistolMenu.SetActive(true);
@@ -76,6 +94,7 @@ public class FoundryMenu : MonoBehaviour
         shotgunMenu.SetActive(true);
     }
 
+    //Pistol
     public void ClickRefillPistolAmmo()
     {
         int newBullets = MaxPistolAmmo - PistolAmmo;
@@ -89,6 +108,25 @@ public class FoundryMenu : MonoBehaviour
         PistolAmmo += 5;
     }
 
+    public void ClickPlusTenMaxPistolAmmo()
+    {
+        MetalScrap -= 50;
+        MaxPistolAmmo += 10;
+    }
+    
+    public void ClickPistolHighVelocityRounds()
+    {
+        MetalScrap -= 150;
+        UnlockedPistolHighVelocityRounds = true;
+    }
+
+    public void ClickPistolExplosiveRounds()
+    {
+        MetalScrap -= 250;
+        UnlockedPistolExplosiveRounds = true;
+    }
+
+    //Shotgun
     public void ClickRefillShotgunAmmo()
     {
         int newBullets = MaxShotgunAmmo - ShotgunAmmo;
@@ -101,4 +139,5 @@ public class FoundryMenu : MonoBehaviour
         MetalScrap -= 15;
         ShotgunAmmo += 5;
     }
+
 }
