@@ -2,16 +2,18 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SkeletonMissingArm : MonoBehaviour, IDamagable
+public class SkeletonMage : MonoBehaviour, IDamagable
 {
-    private const int MAX_HEALTH = 100; 
+    private const int MAX_HEALTH = 200;
 
     public int Health = MAX_HEALTH;
 
-    public float TimeBetweenSwings = 2f;
-    private float lastSwingTime = -999f;
-
     [SerializeField] private LayerMask checkPlayerLayerMask;
+
+    [SerializeField] private Fireball fireballPrefab;
+    [SerializeField] private Transform spawnFireballTransform;
+    public float TimeBetweenShots = 2f;
+    private float lastShotTime = -999f;
 
     [SerializeField] private Renderer[] renderers;
     private float flashTime;
@@ -19,13 +21,11 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
     private bool seenPlayer = false;
 
     private NavMeshAgent navMeshAgent;
-    private Animator animator;
     private AudioSource audioSource;
 
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        animator = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
         AllEnemies.Enemies.Add(gameObject);
     }
@@ -78,21 +78,22 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
     {
         bool huntingPlayer = seenPlayer || Health < MAX_HEALTH;
 
-        if (huntingPlayer)
-            navMeshAgent.SetDestination(PlayerController.Position);
-        animator.SetFloat("Speed", navMeshAgent.velocity.magnitude / 10);
+        if (huntingPlayer == false) return;
 
-        if (Vector3.Distance(transform.position, PlayerController.Position) < 2 && huntingPlayer)
+        navMeshAgent.SetDestination(PlayerController.Position);
+
+        float timeSinceLastShot = Time.time - lastShotTime;
+        if (timeSinceLastShot >= TimeBetweenShots)
         {
-            float timeSinceLastSwing = Time.time - lastSwingTime;
-            if (timeSinceLastSwing >= TimeBetweenSwings)
-            {
-                lastSwingTime = Time.time;
-                animator.ResetTrigger("Attack");
-                animator.SetTrigger("Attack");
-                audioSource.Play();
-                StartCoroutine(CheckIfDamagedPlayer());
-            }
+            Fireball fireball = Instantiate(fireballPrefab);
+            fireball.transform.position = spawnFireballTransform.position;
+            fireball.MoveVector = (PlayerController.Position + Vector3.up ) - spawnFireballTransform.position;
+            fireball.MoveVector.Normalize();
+            fireball.MoveVector *= 25f;
+
+            lastShotTime = Time.time;
+            audioSource.Play();
+            StartCoroutine(CheckIfDamagedPlayer());
         }
     }
 
@@ -100,7 +101,7 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
     {
         yield return new WaitForSeconds(.33f);
         if (Vector3.Distance(transform.position, PlayerController.Position) < 1.5 && Health > 0)
-            HUDText.TakeDamage(15);      
+            HUDText.TakeDamage(10);
     }
 
     public void TakeDamage(int amount)
