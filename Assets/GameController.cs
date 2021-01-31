@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -19,8 +20,16 @@ public class GameController : MonoBehaviour
     public Material Stage3Screen;
     public GameObject ComputerScreen;
 
+    public Image ItemHolder;
+    public Sprite Nightmare1;
+    public Sprite Nightmare2;
+    public Sprite Nightmare3;
+
     public int gameStage = 0;
+    public bool missionStarted = false;
     private int nextStage = 1;
+    private int boxWithPrize = 0;
+    private int boxesPickedUp = 0;
 
     private void Awake()
     {
@@ -44,7 +53,18 @@ public class GameController : MonoBehaviour
         {
             if (gameStage != 0)
             {
-                Door.SetActive(false);
+                if (boxesPickedUp > boxWithPrize)
+                {
+                    ItemHolder.color = new Color(255, 255, 255, 0);
+                    Door.SetActive(true);
+                    missionStarted = false;
+                    gameStage = 0;
+                    ComputerScreen.GetComponent<MeshRenderer>().material = Stage0Screen;
+                }
+                else
+                {
+                    Door.SetActive(false);
+                }
             }
         }
     }
@@ -56,6 +76,18 @@ public class GameController : MonoBehaviour
         if (gameStage == 1) ComputerScreen.GetComponent<MeshRenderer>().material = Stage1Screen;
         if (gameStage == 2) ComputerScreen.GetComponent<MeshRenderer>().material = Stage2Screen;
         if (gameStage == 3) ComputerScreen.GetComponent<MeshRenderer>().material = Stage3Screen;
+        missionStarted = true;
+    }
+
+    public void PickedUpBox()
+    {
+        if (++boxesPickedUp > boxWithPrize )
+        {
+            ItemHolder.color = new Color(255, 255, 255, 1);
+            if (gameStage == 1) ItemHolder.sprite = Nightmare1;
+            if (gameStage == 2) ItemHolder.sprite = Nightmare2;
+            if (gameStage == 3) ItemHolder.sprite = Nightmare3;
+        }
     }
 
     void SetupStage()
@@ -64,6 +96,9 @@ public class GameController : MonoBehaviour
         GameObject[] stage1BoxChildren = new GameObject[Stage1Boxes.transform.childCount];
         GameObject[] stage2BoxChildren = new GameObject[Stage2Boxes.transform.childCount];
         GameObject[] stage3BoxChildren = new GameObject[Stage3Boxes.transform.childCount];
+
+        // Reset box count
+        boxesPickedUp = 0;
 
         // Calculate the number of boxes that need to be disposed of
         int boxesToKill = Stage1Boxes.transform.childCount / 3;
@@ -112,5 +147,8 @@ public class GameController : MonoBehaviour
         // Deactivate fences
         if (gameStage > 1) Stage2Fence.SetActive(false);
         if (gameStage > 2) Stage3Fence.SetActive(false);
+
+        // Determine the magic box that contains the nightmare fuel
+        boxWithPrize = boxesToKill + Random.Range(0, boxesToKill/3);
     }
 }

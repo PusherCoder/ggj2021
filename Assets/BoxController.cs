@@ -11,6 +11,7 @@ public class BoxController : MonoBehaviour
     {
         transform.gameObject.SetActive(false);
         OnPickUpMetalScrap.Invoke(Random.Range(2, 5));
+        GameObject.Find("Game Controller").GetComponent<GameController>().PickedUpBox();
     }
 }
 
