@@ -189,9 +189,9 @@ public class GameController : MonoBehaviour
         if (gameStage == 1)
             SpawnManager.SpawnZone1.Invoke(10);
         if (gameStage == 2)
-            SpawnManager.SpawnZone1.Invoke(40);
+            SpawnManager.SpawnZone1And2.Invoke(40);
         if (gameStage == 3)
-            SpawnManager.SpawnZone1.Invoke(100);
+            SpawnManager.SpawnZone1And2And3.Invoke(100);
 
         // Activate all the boxes
         for (i = 0; i < boxArraySize; i++)
