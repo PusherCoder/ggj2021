@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Pistol : Gun
+public class Shotgun : Gun
 {
     private float lastShotTime = -999f;
 
@@ -18,14 +18,13 @@ public class Pistol : Gun
         Shoot();
     }
 
-
     private void Shoot()
     {
         float timeSinceLastShot = Time.time - lastShotTime;
         if (timeSinceLastShot < .5f) return;
 
         lastShotTime = Time.time;
-
+        
         if (Ammo < 1)
         {
             PlayEmptySFX(Random.Range(.95f, 1f), Random.Range(1.5f, 1.55f));
@@ -38,17 +37,21 @@ public class Pistol : Gun
         PlaySFX(Random.Range(.95f, 1f), Random.Range(1f, 1.05f));
         DoRecoil();
 
-        GunRaycastHit hit = DoRaycast();
-        if (hit.Hit)
+        for (int i = 0; i < 7; i++)
         {
-            SparksPsSpawner.OnSpawnSparksParticles.Invoke(hit.Position, hit.Normal);
-            IDamagable damagable = hit.Object.GetComponent<IDamagable>();
-            if (damagable != null) damagable.TakeDamage(40);
+            Vector2 offset = Random.insideUnitCircle * .02f;
+            GunRaycastHit hit = DoRaycast(offset.x, offset.y);
+            if (hit.Hit)
+            {
+                SparksPsSpawner.OnSpawnSparksParticles.Invoke(hit.Position, hit.Normal);
+                IDamagable damagable = hit.Object.GetComponent<IDamagable>();
+                if (damagable != null) damagable.TakeDamage(15);
+            }
         }
     }
 
     protected override string GetGunString()
     {
-        return $"Pistol {Ammo}";
+        return $"Shotgun {Ammo}";
     }
 }

@@ -7,13 +7,24 @@ public class HUDText : MonoBehaviour
     public static int Health = 100;
     public static string GunString;
 
+    private static HUDText instance;
+
     [SerializeField] private CanvasGroup gameOver;
+    [SerializeField] private CanvasGroup bloodCanvasGroup;
 
     private Text text;
+    private float bloodAlpha = 0f;
 
     private void Awake()
     {
+        instance = this;
         text = GetComponent<Text>();
+    }
+
+    public static void TakeDamage(int damage)
+    {
+        Health -= damage;
+        instance.bloodAlpha = 1f;
     }
 
     private void Update()
@@ -35,5 +46,8 @@ public class HUDText : MonoBehaviour
             }
 
         }
+
+        bloodAlpha -= Time.deltaTime * 2f;
+        bloodCanvasGroup.alpha = bloodAlpha;
     }
 }
