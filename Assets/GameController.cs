@@ -8,6 +8,9 @@ public class GameController : MonoBehaviour
     public GameObject Stage2Boxes;
     public GameObject Stage3Boxes;
 
+    public GameObject Stage2Fence;
+    public GameObject Stage3Fence;
+
     private int gameStage = 1;
 
     private void Awake()
