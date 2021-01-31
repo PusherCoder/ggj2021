@@ -31,9 +31,9 @@ public abstract class Gun : MonoBehaviour
             Quaternion.Euler(0f, 0f, 0f), 
             Time.deltaTime * RecoilReturnMult);
 
-        if (Input.GetMouseButtonDown(0)) OnStartShoot();
-        else if (Input.GetMouseButton(0)) OnShooting();
-        else if (Input.GetMouseButtonUp(0)) OnEndShoot();
+        if (Input.GetMouseButtonDown(0) && Foundry.FoundryMenuVisible == false) OnStartShoot();
+        else if (Input.GetMouseButton(0) && Foundry.FoundryMenuVisible == false) OnShooting();
+        else if (Input.GetMouseButtonUp(0) && Foundry.FoundryMenuVisible == false) OnEndShoot();
     }
 
     private void Bob()
