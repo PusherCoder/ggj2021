@@ -36,6 +36,8 @@ public class GameController : MonoBehaviour
     public AudioSource CalmMusic;
     public AudioClip[] calmClips;
 
+    public Vector3 BobAmount;
+
     public int gameStage = 0;
     public bool missionStarted = false;
     private int nextStage = 1;
@@ -45,10 +47,11 @@ public class GameController : MonoBehaviour
     private bool crossfade;
     private AudioSource[] crossfadeClips = new AudioSource[2];
     private float crossfadeVolume = 0.45f;
+    private Vector3 initialPosition;
 
     private void Awake()
     {
-
+        initialPosition = GameObject.Find("Item").transform.localPosition;
     }
 
     // Start is called before the first frame update
@@ -66,9 +69,9 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Bob();
         if (crossfade)
         {
-            Debug.Log("Crossfading");
             if (crossfadeClips[0].volume == 0.0f)
             {
                 crossfadeClips[1].volume = crossfadeVolume;
@@ -138,6 +141,13 @@ public class GameController : MonoBehaviour
             if (gameStage == 3) ItemHolder.sprite = Nightmare3;
         }
     }
+    private void Bob()
+    {
+        GameObject.Find("Item").transform.localPosition = initialPosition + new Vector3(
+            Mathf.Cos(Time.time * 9f) * PlayerController.MoveMagnitude * BobAmount.x,
+            Mathf.Sin(Time.time * 7f) * PlayerController.MoveMagnitude * BobAmount.y,
+            Mathf.Cos(Time.time * 5f) * PlayerController.MoveMagnitude * BobAmount.z);
+    }
 
     void SetupStage()
     {
@@ -205,7 +215,7 @@ public class GameController : MonoBehaviour
         if (gameStage > 2) Stage3Fence.SetActive(false);
 
         // Determine the magic box that contains the nightmare fuel
+        boxWithPrize = boxesToKill + Random.Range(0, boxesToKill/3);
         boxWithPrize = 2;
-        //boxWithPrize = boxesToKill + Random.Range(0, boxesToKill/3);
     }
 }

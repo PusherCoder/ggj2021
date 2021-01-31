@@ -92084,6 +92084,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fdf79b471c7063240a12806dcd52874a, type: 3}
   - {fileID: 8300000, guid: ff449d43b8bf8554dac2c8a7c8431f29, type: 3}
   - {fileID: 8300000, guid: f7f952fc3b7d24444a0a2c2889dde392, type: 3}
+  BobAmount: {x: 20, y: 50, z: 50}
   gameStage: 0
   missionStarted: 0
 --- !u!4 &2037141068
