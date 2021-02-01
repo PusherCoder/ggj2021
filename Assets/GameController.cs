@@ -84,6 +84,11 @@ public class GameController : MonoBehaviour
             }
 
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
