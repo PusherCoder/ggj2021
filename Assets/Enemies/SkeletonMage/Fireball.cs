@@ -23,7 +23,7 @@ public class Fireball : MonoBehaviour
         PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
         IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
         if (playerController != null)
-            HUDText.TakeDamage(10);
+            HUDText.TakeDamage(5);
         if (damagable != null)
             damagable.TakeDamage(50);
 

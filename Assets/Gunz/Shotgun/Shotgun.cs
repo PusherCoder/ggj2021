@@ -37,7 +37,7 @@ public class Shotgun : Gun
         PlaySFX(Random.Range(.95f, 1f), Random.Range(1f, 1.05f));
         DoRecoil();
 
-        int damage = FoundryMenu.Instance.UnlockedShotgunHeavySlug ? 30 : 15;
+        int damage = FoundryMenu.Instance.UnlockedShotgunHeavySlug ? 30 : 10;
         int numShots = FoundryMenu.Instance.UnlockedShotgunSpreadShot ? 60 : 12;
         float spread = FoundryMenu.Instance.UnlockedShotgunSpreadShot ? .1f : .03f;
 

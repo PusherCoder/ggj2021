@@ -15,18 +15,18 @@ public class BoxController : MonoBehaviour
         transform.gameObject.SetActive(false);
         OnPickUpMetalScrap.Invoke(Random.Range(3, 6));
 
-        if (Random.Range(0f, 1f) < .5f)
+        if (Random.Range(0f, 1f) < .666f)
         {
-            int pistolAmmo = Random.Range(2, 6);
+            int pistolAmmo = Random.Range(3, 7);
             if (FoundryMenu.Instance.PistolAmmo + pistolAmmo > FoundryMenu.Instance.MaxPistolAmmo)
                 pistolAmmo = FoundryMenu.Instance.MaxPistolAmmo - FoundryMenu.Instance.PistolAmmo;
             if (pistolAmmo > 0)
                 OnPickUpPistolAmmo.Invoke(pistolAmmo);
         }
 
-        if (Random.Range(0f, 1f) < .33f && FoundryMenu.Instance.UnlockedShotgun)
+        if (Random.Range(0f, 1f) < .444f && FoundryMenu.Instance.UnlockedShotgun)
         {
-            int shotgunAmmo = Random.Range(2, 6);
+            int shotgunAmmo = Random.Range(3, 6);
             if (FoundryMenu.Instance.ShotgunAmmo + shotgunAmmo > FoundryMenu.Instance.MaxShotgunAmmo)
                 shotgunAmmo = FoundryMenu.Instance.MaxShotgunAmmo - FoundryMenu.Instance.ShotgunAmmo;
             if (shotgunAmmo > 0)

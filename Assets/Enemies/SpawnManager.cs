@@ -77,11 +77,40 @@ public class SpawnManager : MonoBehaviour
 
         for (int i = 0; i < Mathf.Min(count, spawners.Count); i++)
         {
-            int type = Random.Range(0, 2);
+            int type = Random.Range(0, 7);
             if (type == 0)
                 spawners[i].SpawnSkeletonMissingArm();
-            else
+            else if (type == 1)
                 spawners[i].SpawnSkeletonMage();
+            else if (type == 2)
+            {
+                spawners[i].SpawnSkeletonMissingArm();
+                spawners[i].SpawnSkeletonMage();
+            }
+            else if (type == 3)
+            {
+                spawners[i].SpawnSkeletonMissingArm();
+                spawners[i].SpawnSkeletonMissingArm();
+            }
+            else if (type == 4)
+            {
+                spawners[i].SpawnSkeletonMage();
+                spawners[i].SpawnSkeletonMage();
+            }
+            else if (type == 5)
+            {
+                spawners[i].SpawnSkeletonMage();
+                spawners[i].SpawnSkeletonMage();
+                spawners[i].SpawnSkeletonMissingArm();
+
+            }
+            else if (type == 6)
+            {
+                spawners[i].SpawnSkeletonMage();
+                spawners[i].SpawnSkeletonMissingArm();
+                spawners[i].SpawnSkeletonMissingArm();
+
+            }
         }
     }
 

@@ -97,7 +97,7 @@ public class SkeletonMage : MonoBehaviour, IDamagable
 
         if (huntingPlayer == false)
         {
-            lastShotTime = Time.time;
+            lastShotTime = Time.time - 1.5f;
             return;
         }
 
