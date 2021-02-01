@@ -193,6 +193,8 @@ public class GameController : MonoBehaviour
         if (gameStage == 3)
             SpawnManager.SpawnZone1And2And3.Invoke(100);
 
+        HUDText.Health = 100;
+
         // Activate all the boxes
         for (i = 0; i < boxArraySize; i++)
         {
