@@ -22,6 +22,7 @@ public class Foundry : MonoBehaviour
         if (FoundryMenuVisible)
         {
             menu.alpha = 1f;
+            Cursor.visible = true;
             menu.interactable = true;
             menu.blocksRaycasts = true;
             Cursor.lockState = CursorLockMode.None;
@@ -29,6 +30,7 @@ public class Foundry : MonoBehaviour
         else
         {
             menu.alpha = 0f;
+            Cursor.visible = false;
             menu.interactable = false;
             menu.blocksRaycasts = false;
             Cursor.lockState = CursorLockMode.Locked;
