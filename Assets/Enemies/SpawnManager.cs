@@ -41,7 +41,7 @@ public class SpawnManager : MonoBehaviour
         List<EnemySpawner> spawners = new List<EnemySpawner>();
         foreach (EnemySpawner spawner in zone1Spawners)
             spawners.Add(spawner);
-        Spawn(spawners, count);
+        Spawn(spawners, count, 1);
     }
 
     private void SpawnInZone1And2(int count)
@@ -51,7 +51,7 @@ public class SpawnManager : MonoBehaviour
             spawners.Add(spawner);
         foreach (EnemySpawner spawner in zone2Spawners)
             spawners.Add(spawner);
-        Spawn(spawners, count);
+        Spawn(spawners, count, 2);
     }
 
     private void SpawnInZone1And2And3(int count)
@@ -63,10 +63,10 @@ public class SpawnManager : MonoBehaviour
             spawners.Add(spawner);
         foreach (EnemySpawner spawner in zone3Spawners)
             spawners.Add(spawner);
-        Spawn(spawners, count);
+        Spawn(spawners, count, 3);
     }
 
-    private void Spawn(List<EnemySpawner> spawners, int count)
+    private void Spawn(List<EnemySpawner> spawners, int count, int maxCount)
     {
         for (int i = AllEnemies.Enemies.Count - 1; i >= 0; i--)
             Destroy(AllEnemies.Enemies[i].gameObject);
@@ -85,31 +85,30 @@ public class SpawnManager : MonoBehaviour
             else if (type == 2)
             {
                 spawners[i].SpawnSkeletonMissingArm();
-                spawners[i].SpawnSkeletonMage();
+                if (maxCount > 1) spawners[i].SpawnSkeletonMage();
             }
             else if (type == 3)
             {
                 spawners[i].SpawnSkeletonMissingArm();
-                spawners[i].SpawnSkeletonMissingArm();
+                if (maxCount > 1) spawners[i].SpawnSkeletonMissingArm();
             }
             else if (type == 4)
             {
                 spawners[i].SpawnSkeletonMage();
-                spawners[i].SpawnSkeletonMage();
+                if (maxCount > 1) spawners[i].SpawnSkeletonMage();
             }
             else if (type == 5)
             {
                 spawners[i].SpawnSkeletonMage();
-                spawners[i].SpawnSkeletonMage();
-                spawners[i].SpawnSkeletonMissingArm();
+                if (maxCount > 1) spawners[i].SpawnSkeletonMage();
+                if (maxCount > 2) spawners[i].SpawnSkeletonMissingArm();
 
             }
             else if (type == 6)
             {
                 spawners[i].SpawnSkeletonMage();
-                spawners[i].SpawnSkeletonMissingArm();
-                spawners[i].SpawnSkeletonMissingArm();
-
+                if (maxCount > 1) spawners[i].SpawnSkeletonMissingArm();
+                if (maxCount > 2) spawners[i].SpawnSkeletonMissingArm();
             }
         }
     }

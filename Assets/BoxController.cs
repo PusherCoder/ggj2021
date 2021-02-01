@@ -13,7 +13,7 @@ public class BoxController : MonoBehaviour
     {
         GameObject.Find("GetItem").GetComponent<AudioSource>().Play();
         transform.gameObject.SetActive(false);
-        OnPickUpMetalScrap.Invoke(Random.Range(3, 6));
+        OnPickUpMetalScrap.Invoke(Random.Range(5, 10));
 
         if (Random.Range(0f, 1f) < .666f)
         {
