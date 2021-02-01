@@ -118,7 +118,7 @@ public class SkeletonMissingArm : MonoBehaviour, IDamagable
     private IEnumerator CheckIfDamagedPlayer()
     {
         yield return new WaitForSeconds(.33f);
-        if (Vector3.Distance(transform.position, PlayerController.Position) < 1.5 && Health > 0)
+        if (Vector3.Distance(transform.position, PlayerController.Position) < 2.5 && Health > 0)
             HUDText.TakeDamage(10);      
     }
 
