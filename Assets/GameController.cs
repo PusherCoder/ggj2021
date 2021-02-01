@@ -215,7 +215,6 @@ public class GameController : MonoBehaviour
         if (gameStage > 2) Stage3Fence.SetActive(false);
 
         // Determine the magic box that contains the nightmare fuel
-        boxWithPrize = boxesToKill + Random.Range(0, boxesToKill/3);
-        boxWithPrize = 2;
+        boxWithPrize = boxesToKill;
     }
 }
